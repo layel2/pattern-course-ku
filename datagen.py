@@ -60,3 +60,31 @@ def plot_decisionBoundary(model,data,label,plot_min=-6,plot_max=6):
     plt.contourf(xx,yy,pred_db.reshape(xx.shape),cmap=matplotlib.colors.ListedColormap(colors_db))
     scatterplot = plt.scatter(data[:,0],data[:,1],c=label,cmap=colors)
     plt.legend(handles=scatterplot.legend_elements()[0],labels=['class_0','class_1'])
+
+def myplot(data,label,title=None):
+    colors = ListedColormap(['red','blue'])
+    plt.figure(figsize=(6,6))
+    plt.xlim(-6,6)
+    plt.ylim(-6,6)
+    scatterplot = plt.scatter(data[:,0],data[:,1],c=label,cmap=colors)
+    plt.legend(handles=scatterplot.legend_elements()[0],labels=['class_0','class_1'])
+    plt.title(title)
+    plt.show()
+
+
+def pred_plot(x,y,pred):
+    class_plot = y + ~(pred==y)*2 
+    plt.figure(figsize=(6,6))
+    plt.xlim(-6,6)
+    plt.ylim(-6,6)
+    colors_dict = {0:'red',1:'blue',2:'green',3:'orange'}
+    colors = ListedColormap(['red','blue','green','orange'])
+    scatter = plt.scatter(x[:,0],x[:,1],c=[colors_dict[i] for i in class_plot],cmap=colors,label=class_plot)
+    legend_elements = [Line2D([0], [0], marker='o', color='w', label='class_0',markerfacecolor='red', markersize=7),
+                   Line2D([0], [0], marker='o', color='w', label='class_1',markerfacecolor='blue', markersize=7),
+                   Line2D([0], [0], marker='o', color='w', label='class_0 miss',markerfacecolor='green', markersize=7),
+                       Line2D([0], [0], marker='o', color='w', label='class_1 miss',markerfacecolor='orange', markersize=7)
+                         ]
+
+    plt.legend(handles=legend_elements)
+    plt.show()
